@@ -9,22 +9,22 @@ steps:
     args:
     - '-c'
     - |
-      docker pull gcr.io/oa-devel/freezer:cache || exit 0
+      docker pull gcr.io/freezer-308311/freezer:cache || exit 0
   - id: 'build-image'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/oa-devel/freezer:${COMMIT_SHA}',
-             '--cache-from', 'gcr.io/oa-devel/freezer:cache', '.']
+    args: ['build', '-t', 'gcr.io/freezer-308311/freezer:${COMMIT_SHA}',
+             '--cache-from', 'gcr.io/freezer-308311/freezer:cache', '.']
 
   - id: 'tag-cache-image'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'gcr.io/oa-devel/freezer:${COMMIT_SHA}', 'gcr.io/oa-devel/freezer:cache']
+    args: ['tag', 'gcr.io/freezer-308311/freezer:${COMMIT_SHA}', 'gcr.io/freezer-308311/freezer:cache']
   
   - id: 'docker-push'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/oa-devel/freezer']
+    args: ['push', 'gcr.io/freezer-308311/freezer']
 
   - id: 'deploy-cloud-run'
     name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'run', 'deploy', 'freezer', '--platform', 'managed', '--image', 'gcr.io/oa-devel/freezer:${COMMIT_SHA}',
+    args: ['beta', 'run', 'deploy', 'freezer', '--platform', 'managed', '--image', 'gcr.io/freezer-308311/freezer:${COMMIT_SHA}',
            '--allow-unauthenticated', '--project', 'freezer-308311', '--region', 'europe-west1']
 id: 'deploy'
