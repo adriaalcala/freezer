@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.name }}!</h1>
+    {% for meal in meals %}
+    <div><p>{{meal.id}}: {{ meal.description }} expires: <b>{{ meal.expiration_date }}</b></p></div>
+    {% endfor %}
+{% endblock %}

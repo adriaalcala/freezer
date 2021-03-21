@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Meal</h1>
+    <form action="" method="post">
+        <p>
+        {{ form.description.label }}            
+        {{ form.description }}
+        </p>
+        {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <p>
+        {{ form.buy_date.label }}            
+        {{ form.buy_date }}
+    {% for error in form.buy_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}    
+    </p>
+        <p>
+        {{ form.expiration_date.label }}            
+        {{ form.expiration_date }}
+        <p>
+        {% for error in form.expiration_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.freezing_date.label }}            
+        {{ form.freezing_date }}
+        <p>
+        {% for error in form.freezing_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.units.label }}            
+        {{ form.units }}
+        <p>
+        </p>
+        {% for error in form.units.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.weight.label }}            
+        {{ form.weight }}
+        <p>
+        </p>
+        {% for error in form.weight.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.unity.label }}            
+        {{ form.unity }}
+        <p>
+        </p>
+        {% for error in form.unity.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.category.label }}            
+        {{ form.category }}
+        <p>
+        </p>
+        {% for error in form.category.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        {{ form.subcategory.label }}            
+        {{ form.subcategory }}
+        <p>
+        </p>
+        {% for error in form.subcategory.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+        <p>
+        {{ form.drawer.label }}            
+        {{ form.drawer }}
+        </p>
+        {% for error in form.drawer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}    
+    </p>
+        <p>{{ form.submit() }}</p>
+        {{ form.csrf_token() }}
+    </form>
+    
+</div>
+
+{% endblock %}

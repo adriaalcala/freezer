@@ -1,0 +1,3 @@
+postgres Habilitar api
+user: postgres
+pass: 8Grc2xf0Lg4aa4oo
