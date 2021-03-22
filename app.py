@@ -41,9 +41,15 @@ def load_user(_id):
 @app.route('/index')
 @login_required
 def index():
+    subcategory = request.args.get('subcategory')
     with db_session:
-        meals = Meal.select(lambda m: m.user == current_user).order_by(Meal.expiration_date, Meal.id)[:]
-    return render_template('index.html', title='Home', meals=meals)
+        if subcategory:
+            subcategory = SubCategory[subcategory]
+            meals = Meal.select(lambda m: m.user == current_user and m.subcategory == subcategory).order_by(Meal.expiration_date, Meal.id)[:]
+        else:
+            meals = Meal.select(lambda m: m.user == current_user).order_by(Meal.expiration_date, Meal.id)[:]
+        subcategories = SubCategory.select()[:]
+    return render_template('index.html', title='Home', meals=meals, subcategories=subcategories, selected_subcategory=subcategory)
 
 
 @app.route('/login', methods=['GET', 'POST'])

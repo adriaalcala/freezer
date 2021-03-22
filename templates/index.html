@@ -1,8 +1,38 @@
+<script> 
+    function request() {  
+        var checkRadio = document.querySelector( 
+            'input[name="subcategory"]:checked'); 
+          
+        if(checkRadio != null) { 
+            console.log(checkRadio)
+            location.href = "/index?subcategory=" + checkRadio.id
+        } 
+    } 
+</script> 
+
 {% extends "base.html" %}
 
 {% block content %}
     <h1>Hi, {{ current_user.name }}!</h1>
+    <div>
+        <form> 
+            {% for subcategory in subcategories %}
+            {% if subcategory.id == selected_subcategory.id %}
+                <input type="radio" name="subcategory" id={{ subcategory.id }}
+                    value={{ subcategory.description }} checked = "checked"> {{subcategory.description}}<br> 
+            {% else %}
+            <input type="radio" name="subcategory" id={{ subcategory.id }}
+            value={{ subcategory.description }}> {{subcategory.description}}<br> 
+            {% endif %}
+            {% endfor %}
+          
+            <button type="button" onclick="request()"> 
+                Submit 
+            </button> 
+        </form> 
+      </div>
     {% for meal in meals %}
     <div><p>{{meal.id}}: {{ meal.description }} expires: <b>{{ meal.expiration_date }}</b></p></div>
     {% endfor %}
 {% endblock %}
+
