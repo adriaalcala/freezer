@@ -1,6 +1,6 @@
 """App configuration module."""
 from flasgger import Swagger  # type: ignore
-from flask import Flask, request, jsonify, url_for
+from flask import Flask, request, jsonify
 from flask_login import LoginManager
 
 from flask_cors import CORS  # type: ignore
@@ -49,7 +49,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect('/index')
     form = LoginForm()
     if form.validate_on_submit():
         with db_session:
@@ -70,20 +70,20 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect('/index')
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect('/index')
     form = RegistrationForm()
     if form.validate_on_submit():
         with db_session:
             user = User(name=form.name.data, password=form.password.data)
             commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return redirect('/login')
     return render_template('register.html', title='Register', form=form)
 
 
@@ -110,7 +110,7 @@ def add_meal():
               user = current_user
             )
             commit()
-        return redirect(url_for('index'))
+        return redirect('/index')
     return render_template('add_meal.html', title='Add Meal', form=form)
 
 
@@ -121,7 +121,7 @@ def delete_meal():
         with db_session:
             Meal[form.meal_id.data].delete()
             commit()
-        return redirect(url_for('index'))
+        return redirect('/index')
     return render_template('delete_meal.html', title='Add Meal', form=form)
 
 

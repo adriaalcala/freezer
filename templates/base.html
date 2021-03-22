@@ -11,12 +11,12 @@
             Freezer:
             <a href="/index">Home</a>
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
+            <a href="/login">Login</a>
             {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="/logout">Logout</a>
             {% endif %}
-            <a href="{{ url_for('add_meal') }}">Add Meal</a>
-            <a href="{{ url_for('delete_meal') }}">Delete Meal</a>
+            <a href="/add_meal">Add Meal</a>
+            <a href="/delete_meal">Delete Meal</a>
 
         </div>
         <hr>
