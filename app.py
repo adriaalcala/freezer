@@ -84,7 +84,6 @@ def register():
 
 
 @app.route('/add_meal', methods=['GET', 'POST'])
-@login_required
 def add_meal():
     form = AddMeal()
     with db_session:
@@ -106,13 +105,13 @@ def add_meal():
               drawer = form.drawer.data,
               user = current_user
             )
+            print(meal)
             commit()
         return redirect('/index')
     return render_template('add_meal.html', title='Add Meal', form=form)
 
 
 @app.route('/delete_meal', methods=['GET', 'POST'])
-@login_required
 def delete_meal():
     form = DeleteMeal()
     if form.validate_on_submit():
