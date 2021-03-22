@@ -88,6 +88,7 @@ def register():
 
 
 @app.route('/add_meal', methods=['GET', 'POST'])
+@login_required
 def add_meal():
     form = AddMeal()
     with db_session:
@@ -115,6 +116,7 @@ def add_meal():
 
 
 @app.route('/delete_meal', methods=['GET', 'POST'])
+@login_required
 def delete_meal():
     form = DeleteMeal()
     if form.validate_on_submit():
@@ -123,6 +125,11 @@ def delete_meal():
             commit()
         return redirect('/index')
     return render_template('delete_meal.html', title='Add Meal', form=form)
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/login')
 
 
 @auth.verify_password
